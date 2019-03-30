@@ -1,0 +1,9 @@
+cachetools
+ccxt
+flask
+dash
+dash-html-components
+dash-core-components
+colorlover
+pandas
+pandas_datareader
