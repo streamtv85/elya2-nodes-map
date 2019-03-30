@@ -62,16 +62,16 @@ def serve_layout():
         html.Div(
             [
                 indicator(
-                    "Whitelist nodes",
-                    "whitelist_indicator",
+                    "Network Nodes",
+                    "nodes_indicator",
                 ),
                 indicator(
-                    "Graylist nodes",
-                    "graylist_indicator",
-                ),
-                indicator(
-                    "Block height",
+                    "Block Height",
                     "block_indicator",
+                ),
+                indicator(
+                    "Coins Supply (ELYA)",
+                    "supply_indicator",
                 ),
             ],
             className="row",
@@ -99,7 +99,7 @@ app.title = "Elya Coin World Map"
     ]
 )
 def update_world_map(n, current_figure):
-    df = geoip.get_locations_dataframe(geoip.get_peers())
+    df = geoip.add_locations_to_df(geoip.get_peers())
     if len(df) == 0:
         return current_figure
     # print(df.head())
@@ -149,19 +149,20 @@ def update_world_map(n, current_figure):
 
 
 @app.callback(
-    Output("whitelist_indicator", "children"),
+    Output("nodes_indicator", "children"),
     [Input("timer", "n_intervals")],
 )
-def whitelist_indicator_callback(n):
-    return geoip.get_info()['white_peerlist_size']
+def nodes_indicator_callback(n):
+    return ""
+    # return geoip.get_info()['white_peerlist_size']
 
 
 @app.callback(
-    Output("graylist_indicator", "children"),
+    Output("supply_indicator", "children"),
     [Input("timer", "n_intervals")],
 )
-def graylist_indicator_callback(n):
-    return geoip.get_info()['grey_peerlist_size']
+def supply_indicator_callback(n):
+    return geoip.get_info()['supply']
 
 
 @app.callback(

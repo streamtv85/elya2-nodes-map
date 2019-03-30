@@ -2,7 +2,7 @@
 
 APP_NAME=elyamap
 
-IMAGE=$REGISTRY/jora/elyamap-app
+IMAGE=$REGISTRY/jora/elya2map-app
 
 #pull the latest image
 docker pull $IMAGE:latest

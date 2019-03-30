@@ -1,9 +1,9 @@
 from setuptools import setup
 
-setup(name='elyamap',
-      version='0.1',
+setup(name='elyamapv2',
+      version='0.2',
       description='Web application for crypto analytics',
-      url='https://github.com/streamtv85/elya-nodes-map',
+      url='https://github.com/streamtv85/elya2-nodes-map',
       author='streamtv85',
       author_email='streamtv85@gmail.com',
       license='Proprietary',
