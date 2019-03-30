@@ -1,6 +1,7 @@
 ### ElyaCoinV2 Network Nodes Map
 
-the code is build for elyacoin POS
+the code is built for elyacoin POS
+
 Data is pulled from Elya explorer API
 https://elya-explorer-pos.gonspool.com/ext/connections
 
