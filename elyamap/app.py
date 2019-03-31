@@ -102,9 +102,19 @@ def update_world_map(n, current_figure):
     df = geoip.add_locations_to_df(geoip.get_peers())
     if len(df) == 0:
         return current_figure
-    # print(df.head())
 
-    tpp = df.countryCode.value_counts()
+    curr_layout = layout.copy()
+    if current_figure:
+        # print(current_figure['layout'])
+        proj = current_figure['layout']['geo']['projection'].copy()
+        if 'scale' in proj:
+            curr_layout['geo']['projection']['scale'] = proj['scale']
+        if 'rotation' in proj:
+            curr_layout['geo']['projection']['rotation'] = proj['rotation']
+        if 'center' in current_figure['layout']['geo']:
+            curr_layout['geo']['center'] = current_figure['layout']['geo']['center']
+
+    tpp = df['countryCode'].value_counts()
     df_temp = pd.DataFrame(data={'countryCode': tpp.index.tolist(), 'values': tpp.tolist()})
 
     ddd = df_temp.merge(dfcountry, how='inner', left_on=['countryCode'], right_on=['2let'])
@@ -144,7 +154,7 @@ def update_world_map(n, current_figure):
 
     return dict(
         data=[countries, scatter],
-        layout=layout
+        layout=curr_layout
     )
 
 
@@ -153,8 +163,7 @@ def update_world_map(n, current_figure):
     [Input("timer", "n_intervals")],
 )
 def nodes_indicator_callback(n):
-    return ""
-    # return geoip.get_info()['white_peerlist_size']
+    return len(geoip.get_peers().index)
 
 
 @app.callback(

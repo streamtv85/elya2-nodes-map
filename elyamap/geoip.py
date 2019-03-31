@@ -33,10 +33,7 @@ def get_peers():
     df = pd.DataFrame.from_records(result['data'],
                                    index='address', columns=['address', 'version', 'protocol', 'createdAt'])
     df.index.rename("ip", inplace=True)
-
     return df
-    # df = pd.DataFrame.from_records(peers, index='address', columns=['address', 'version', 'protocol', 'createdAt'])
-    # return result['data']
 
 
 @cached(cache=ip_cache)
