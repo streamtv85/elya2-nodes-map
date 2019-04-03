@@ -115,6 +115,7 @@ def update_world_map(n, current_figure):
     if len(df) == 0:
         return current_figure
 
+    # preserve current scaling and rotation of the map so it is not reset on refresh
     curr_layout = layout.copy()
     if current_figure:
         # print(current_figure['layout'])

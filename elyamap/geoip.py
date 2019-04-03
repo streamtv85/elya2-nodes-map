@@ -92,9 +92,15 @@ def add_locations_to_df(ip_df):
     else:
         df_cache = pd.DataFrame()
 
-    # find those not in cache yet or with empty latitude or longitude
-    diff = list(set(list_of_ip) - set(
-        df_cache.loc[df_cache['latitude'].notna() & df_cache['longitude'].notna()].index.tolist()))
+    # find those not in cache yet or with empty latitude or longitude or countryCode
+    if 'latitude' in df_cache.columns and 'longitude' in df_cache.columns and 'countryCode' in df_cache.columns:
+        diff = list(set(list_of_ip) - set(
+            df_cache.loc[df_cache['latitude'].notna() &
+                         df_cache['longitude'].notna() &
+                         df_cache['countryCode'].notna()
+                         ].index.tolist()))
+    else:
+        diff = list_of_ip
 
     # Check if the current list of peers became smaller than we have in cache.
     # cache_extra = list(set(df_cache.index.tolist()) - set(list_of_ip))
