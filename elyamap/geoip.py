@@ -92,7 +92,9 @@ def add_locations_to_df(ip_df):
     else:
         df_cache = pd.DataFrame()
 
-    diff = list(set(list_of_ip) - set(df_cache.index.tolist()))
+    # find those not in cache yet or with empty latitude or longitude
+    diff = list(set(list_of_ip) - set(
+        df_cache.loc[df_cache['latitude'].notna() & df_cache['longitude'].notna()].index.tolist()))
 
     # Check if the current list of peers became smaller than we have in cache.
     # cache_extra = list(set(df_cache.index.tolist()) - set(list_of_ip))
@@ -123,10 +125,10 @@ if __name__ == '__main__':
     # lst = get_loc_by_ip(get_peers()[0])
     # print(lst)
 
-    pd.set_option('display.max_columns', 30)
-    peers = get_peers()
-    res = add_locations_to_df(peers)
-    print(res)
+    # pd.set_option('display.max_columns', 30)
+    # peers = get_peers()
+    # res = add_locations_to_df(peers)
+    # print(res)
 
     # print(peers)
 
@@ -146,3 +148,14 @@ if __name__ == '__main__':
     # df.loc[2, 'ttt'] = 'fds'
     # df.loc[3, 'fff'] = 'rew'
     # print(df)
+
+    cache_file = "locations.csv"
+    if os.path.isfile(cache_file):
+        df_cache = pd.read_csv(cache_file, index_col=0)
+    else:
+        df_cache = pd.DataFrame()
+
+    # find those with empty latitude
+    df_cache_not_filled = df_cache.loc[df_cache['latitude'].notna() & df_cache['longitude'].notna()].index.tolist()
+    print(len(df_cache.index.tolist()))
+    print(len(df_cache_not_filled))
