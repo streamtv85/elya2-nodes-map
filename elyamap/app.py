@@ -52,7 +52,19 @@ def serve_layout():
         html.Div(
             dcc.Graph(
                 className='twelve columns',
-                id='elya_graph'
+                id='elya_graph',
+                figure=dict(
+                    data=[{
+                        'type': 'choropleth',
+                        'locations': [],
+                        'z': [],
+                        'colorscale': [[0, "rgb(235, 250, 235)"], [1, "rgb(36, 143, 36)"]],
+                        'autocolorscale': False,
+                        'reversescale': False,
+                    }, {}],
+                    layout=layout
+                )
+
             ),
             className="row",
             style={"margin-bottom": "10px"}
