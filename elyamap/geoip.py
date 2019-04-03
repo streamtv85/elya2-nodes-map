@@ -95,14 +95,14 @@ def add_locations_to_df(ip_df):
     diff = list(set(list_of_ip) - set(df_cache.index.tolist()))
 
     # Check if the current list of peers became smaller than we have in cache.
-    cache_extra = list(set(df_cache.index.tolist()) - set(list_of_ip))
-    if len(cache_extra) > 0 and os.path.isfile(cache_file):
-        df_cache = pd.DataFrame()
-        os.remove(cache_file)
-    else:
-        # if no changes - return the cached table
-        if len(diff) == 0:
-            return df_cache
+    # cache_extra = list(set(df_cache.index.tolist()) - set(list_of_ip))
+    # if len(cache_extra) > 0 and os.path.isfile(cache_file):
+    #     df_cache = pd.DataFrame()
+    #     os.remove(cache_file)
+    # else:
+    # if no changes - return the cached table
+    if len(diff) == 0:
+        return df_cache
 
     if len(df_cache) > 0:
         df = df_cache
